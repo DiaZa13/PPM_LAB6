@@ -15,13 +15,16 @@ class newguestFragmentViewModel : ViewModel() {
     val save : LiveData<Boolean>
     get() = _save
 
-
-
     init{
     _save.value = false
     }
 
     fun saved(){
         _save.value = true
+    }
+
+    fun addNewGuest(name:String, phone : String, email : String) : Guest{
+        _newguest.value = Guest(name,phone,email)
+        return _newguest.value!!
     }
 }

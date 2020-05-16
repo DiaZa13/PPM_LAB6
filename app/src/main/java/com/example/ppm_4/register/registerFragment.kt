@@ -26,10 +26,10 @@ class registerFragment : Fragment() {
     }
 
     private lateinit var viewModel: RegisterFragmentViewModel
-    private lateinit var guests : Guests //questionuser
     private lateinit var binding:FragmentRegisterBinding
+    private lateinit var guests : Guests //questionuser
     private var guestIndex = 0
-    private var mensaje = " "
+    private var tRegistered = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +39,9 @@ class registerFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_register, container, false)
 
+        for(guestIndex in 0..guests.guests.size -1){
+            guests.guests[guestIndex].tRegistered = 0
+        }
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -73,12 +76,24 @@ class registerFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.registered -> {
             // User chose the "Settings" item, show the app settings UI...
-            updateVisibleGuests()
+            tRegistered += 1
+            if(guests.guests.size > guestIndex-1){
+                guests.guests[guestIndex-1].registered = "Sí"
+            }
+            guests.guests[guests.guests.size-1].tRegistered = tRegistered
+            if(!updateVisibleGuests()){
+                view?.findNavController()?.navigate(R.id.action_registerFragment_to_resultsFragment)
+            }
             true
         }
         R.id.Notregistered -> {
             // User chose the "Settings" item, show the app settings UI...
-            updateVisibleGuests()
+            if(guests.guests.size > guestIndex-1){
+                guests.guests[guestIndex-1].registered = "No"
+            }
+            if(!updateVisibleGuests()){
+                view?.findNavController()?.navigate(R.id.action_registerFragment_to_resultsFragment)
+            }
 
             true
         }
@@ -90,12 +105,15 @@ class registerFragment : Fragment() {
         }
     }
 
-    fun updateVisibleGuests(){
+    fun updateVisibleGuests() : Boolean{
         guestIndex ++
         if(guests.guests.size > guestIndex-1){
-            viewModel.updateGuest(guests.guests[guestIndex -1])
+            viewModel.updateGuest(guests.guests[guestIndex-1])
             (activity as AppCompatActivity).supportActionBar?.title = "Registrando (" + guestIndex + "/ " + guests.guests.size+")"
+            return true
         }
+
+        return false
     }
 
 

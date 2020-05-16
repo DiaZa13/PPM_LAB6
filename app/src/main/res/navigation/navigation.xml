@@ -39,7 +39,7 @@
         android:label="Acerca de"
         tools:layout="@layout/fragment_about" />
     <fragment
-        android:id="@+id/save"
+        android:id="@+id/guestsFragment2"
         android:name="com.example.ppm_4.guests.guestsFragment"
         android:label="fragment_guests"
         tools:layout="@layout/fragment_guests" >
@@ -54,6 +54,6 @@
         tools:layout="@layout/fragment_newguest" >
         <action
             android:id="@+id/action_newguestFragment_to_guestsFragment2"
-            app:destination="@id/save" />
+            app:destination="@id/guestsFragment2" />
     </fragment>
 </navigation>

@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="guest"
-            type="com.example.ppm_4.models.Guest" />
+            name="viewModel"
+            type="com.example.ppm_4.guests.GuestsFragmentViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/carrois_gothic"
-                    android:text="Hello" />
+                    android:text="@{viewModel.guests}" />
 
             </LinearLayout>
         </ScrollView>

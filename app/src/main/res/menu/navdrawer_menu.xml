@@ -7,7 +7,7 @@
         android:title="Inicio" />
 
     <item
-        android:id="@+id/save"
+        android:id="@+id/guestsFragment2"
         android:icon="@mipmap/image19"
         android:title="Invitados" />
 

@@ -7,8 +7,8 @@
 
     <data>
         <variable
-            name="guest"
-            type="com.example.ppm_4.models.Guest" />
+            name="viewModel"
+            type="com.example.ppm_4.results.ResultsFragmentViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,11 +24,13 @@
             android:layout_marginLeft="40dp"
             android:layout_marginTop="36dp"
             android:fontFamily="@font/jockey_one"
+            android:gravity="center_horizontal|center_vertical"
             android:textSize="30sp"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintHorizontal_bias="0.809"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtTotal" />
+            app:layout_constraintTop_toBottomOf="@+id/txtTotal"
+            tools:text="@{viewModel.totalRegistered}" />
 
         <TextView
             android:id="@+id/txtTotal"
@@ -36,7 +38,8 @@
             android:layout_height="50dp"
             android:layout_marginTop="240dp"
             android:fontFamily="@font/jockey_one"
-            android:text="Invitados: 8"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="@{viewModel.totalGuests}"
             android:textSize="30sp"
             app:layout_constraintEnd_toStartOf="@+id/imageView5"
             app:layout_constraintHorizontal_bias="0.902"
