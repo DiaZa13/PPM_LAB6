@@ -41,19 +41,43 @@
     <fragment
         android:id="@+id/guestsFragment2"
         android:name="com.example.ppm_4.guests.guestsFragment"
-        android:label="fragment_guests"
-        tools:layout="@layout/fragment_guests" >
+        android:label="Invitados"
+        tools:layout="@layout/fragment_guests">
         <action
             android:id="@+id/action_guestsFragment2_to_newguestFragment"
             app:destination="@id/newguestFragment" />
+        <action
+            android:id="@+id/action_guestsFragment2_to_startFragment2"
+            app:destination="@id/startFragment2" />
     </fragment>
     <fragment
         android:id="@+id/newguestFragment"
         android:name="com.example.ppm_4.newguest.newguestFragment"
-        android:label="fragment_newguest"
-        tools:layout="@layout/fragment_newguest" >
+        android:label="Nuevo Invitado"
+        tools:layout="@layout/fragment_newguest">
         <action
             android:id="@+id/action_newguestFragment_to_guestsFragment2"
             app:destination="@id/guestsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/rolesFragment2"
+        android:name="com.example.ppm_4.roles.rolesFragment"
+        android:label="Roles"
+        tools:layout="@layout/fragment_roles">
+        <action
+            android:id="@+id/action_rolesFragment2_to_newroleFragment2"
+            app:destination="@id/newroleFragment2" />
+        <action
+            android:id="@+id/action_rolesFragment2_to_startFragment2"
+            app:destination="@id/startFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/newroleFragment2"
+        android:name="com.example.ppm_4.newrole.newroleFragment"
+        android:label="Nuevo Rol"
+        tools:layout="@layout/newrole_fragment">
+        <action
+            android:id="@+id/action_newroleFragment2_to_rolesFragment2"
+            app:destination="@id/rolesFragment2" />
     </fragment>
 </navigation>

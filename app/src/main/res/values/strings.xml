@@ -6,4 +6,5 @@
     <string name="newName">Ingrese el nombre</string>
     <string name="newPhone">Ingrese el teléfono</string>
     <string name="newEmail">Ingrese el correo electrónico</string>
+    <string name="newDescrition">Ingrese la descripción</string>
 </resources>

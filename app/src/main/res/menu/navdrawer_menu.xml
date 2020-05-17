@@ -12,6 +12,12 @@
         android:title="Invitados" />
 
     <item
+        android:id="@+id/rolesFragment2"
+        android:icon="@mipmap/image24"
+        android:title="Roles" />
+
+
+    <item
         android:id="@+id/aboutFragment"
         android:icon="@mipmap/image12"
         android:title="Acerca de" />

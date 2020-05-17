@@ -39,6 +39,7 @@ class newguestFragment : Fragment() {
 
         binding.setLifecycleOwner(this)
 
+
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -53,7 +54,6 @@ class newguestFragment : Fragment() {
                 val phone = txtPhone.getText().toString()
                 val email = txtEmail.getText().toString()
                 guests.guests.add(viewModel.addNewGuest(name,phone,email))
-                view?.findNavController()?.navigate(R.id.action_newguestFragment_to_guestsFragment2)
             }
         })
 
@@ -73,26 +73,22 @@ class newguestFragment : Fragment() {
         inflater.inflate(R.menu.newguest_menu, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.save-> {
-            // User chose the "Settings" item, show the app settings UI...
-            val savedResult = viewModel.saved()
-            true
-        }
-        R.id.close -> {
-            // User chose the "Settings" item, show the app settings UI...
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        super.onOptionsItemSelected(item)
+
+        if(item.itemId == R.id.save){
+        viewModel.saved()
             view?.findNavController()?.navigate(R.id.action_newguestFragment_to_guestsFragment2)
-            true
         }
 
-        else -> {
-            // If we got here, the user's action was not recognized.
-            // Invoke the superclass to handle it.
-            super.onOptionsItemSelected(item)
+        if(item.itemId == R.id.close){
+            view?.findNavController()?.navigate(R.id.action_newguestFragment_to_guestsFragment2)
         }
+        return NavigationUI.onNavDestinationSelected(item, view!!.findNavController())
     }
-
-
-
 }
+
+
+
+
 
