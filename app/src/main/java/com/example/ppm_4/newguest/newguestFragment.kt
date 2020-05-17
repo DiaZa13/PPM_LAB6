@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.TextView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -38,7 +39,6 @@ class newguestFragment : Fragment() {
             inflater, R.layout.fragment_newguest, container, false)
 
         binding.setLifecycleOwner(this)
-
 
         setHasOptionsMenu(true)
         return binding.root
@@ -73,18 +73,32 @@ class newguestFragment : Fragment() {
         inflater.inflate(R.menu.newguest_menu, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        super.onOptionsItemSelected(item)
 
-        if(item.itemId == R.id.save){
-        viewModel.saved()
-            view?.findNavController()?.navigate(R.id.action_newguestFragment_to_guestsFragment2)
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.save -> {
+            val name = txtName.getText().toString()
+            val phone = txtPhone.getText().toString()
+            val email = txtEmail.getText().toString()
+            if(name == "" || phone == ""|| email == ""){
+                Toast.makeText(activity, "Llene todos los campos proporcionados", Toast.LENGTH_SHORT).show()
+            }else{
+            // User chose the "Settings" item, show the app settings UI...
+            viewModel.saved()
+            view?.findNavController()?.navigate(R.id.action_newguestFragment_to_guestsFragment2)}
+
+            true
+        }
+        R.id.close -> {
+            // User chose the "Settings" item, show the app settings UI...
+                view?.findNavController()?.navigate(R.id.action_newguestFragment_to_guestsFragment2)
+            true
         }
 
-        if(item.itemId == R.id.close){
-            view?.findNavController()?.navigate(R.id.action_newguestFragment_to_guestsFragment2)
+        else -> {
+            // If we got here, the user's action was not recognized.
+            // Invoke the superclass to handle it.
+            super.onOptionsItemSelected(item)
         }
-        return NavigationUI.onNavDestinationSelected(item, view!!.findNavController())
     }
 }
 

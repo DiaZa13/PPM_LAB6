@@ -34,6 +34,9 @@ class guestsFragment : Fragment() {
         binding.btnNewguest.setOnClickListener{
             view?.findNavController()?.navigate(R.id.action_guestsFragment2_to_newguestFragment)
         }
+
+        binding.setLifecycleOwner(this)
+
         return binding.root
     }
 
