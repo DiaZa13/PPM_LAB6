@@ -1,11 +1,15 @@
 package com.example.ppm_4.register
 
 import android.os.Bundle
+import com.example.ppm_4.R
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.example.ppm_4.R
+import androidx.navigation.findNavController
+import androidx.lifecycle.Observer
+import com.example.ppm_4.database.GuestDatabase
 import com.example.ppm_4.databinding.FragmentRegisterBinding
 
 
@@ -19,6 +23,7 @@ class registerFragment : Fragment() {
     }
 
     private lateinit var viewModel: RegisterFragmentViewModel
+    private lateinit var viewModelFactory: RegisterFragmentViewModelFactory
     private lateinit var binding:FragmentRegisterBinding
     private var guestIndex = 0
     private var tRegistered = 0
@@ -39,10 +44,24 @@ class registerFragment : Fragment() {
     //ViewModel
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(RegisterFragmentViewModel::class.java)
-        // TODO: Use the ViewModel
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
+        val application = requireNotNull(this.activity).application
+        val dataSource = GuestDatabase.getInstance(application).GuestDatabaseDao
+        viewModelFactory = RegisterFragmentViewModelFactory(dataSource)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(RegisterFragmentViewModel::class.java)
         binding.viewModel = viewModel
+
+        viewModel.registerComplete.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                view?.findNavController()?.navigate(R.id.action_registerFragment_to_resultsFragment)
+                viewModel.finishRegister()
+            }
+        })
+
+        viewModel.guests.observe(viewLifecycleOwner, Observer {
+            viewModel.initialize(it)
+            (activity as AppCompatActivity).supportActionBar?.title = "Registrando (" + viewModel.guestIndex + "/ " + viewModel.totalGuests +")"
+        })
     }
 
     //ActionBar
@@ -56,14 +75,12 @@ class registerFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.registered -> {
             // User chose the "Settings" item, show the app settings UI...
-            tRegistered += 1
-
+            viewModel.updateRegisteredCurrentGuest()
             true
         }
         R.id.Notregistered -> {
             // User chose the "Settings" item, show the app settings UI...
-
-
+            viewModel.updateRegisteredCurrentGuest()
             true
         }
 

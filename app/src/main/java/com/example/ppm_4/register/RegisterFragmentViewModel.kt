@@ -36,7 +36,7 @@ class RegisterFragmentViewModel(val database: GuestDatabaseDao) : ViewModel() {
         }
     }
 
-    fun updateRegisteredCurrentQuestion() {
+    fun updateRegisteredCurrentGuest() {
         val guest = actualGuest.value
         guest?.registered = "Sí"
         guestIndex++
@@ -50,7 +50,7 @@ class RegisterFragmentViewModel(val database: GuestDatabaseDao) : ViewModel() {
         }
     }
 
-    fun updateNotRegisteredCurrentQuestion() {
+    fun updateNotRegisteredCurrentGuest() {
         val guest = actualGuest.value
         guest?.registered = "No"
         guestIndex++
