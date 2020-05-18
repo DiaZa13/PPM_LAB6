@@ -107,12 +107,12 @@
 
         <TextView
             android:id="@+id/txtOrder"
-            android:layout_width="26dp"
-            android:layout_height="52dp"
+            android:layout_width="64dp"
+            android:layout_height="49dp"
             android:layout_marginTop="252dp"
             android:fontFamily="@font/carrois_gothic"
             android:gravity="center"
-            android:text="0"
+            android:text="@={viewModel.order}"
             android:textColor="#050505"
             android:textSize="30sp"
             android:textStyle="bold"

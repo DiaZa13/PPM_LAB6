@@ -2,6 +2,7 @@ package com.example.ppm_4.newrole
 
 import android.os.Bundle
 import android.view.*
+import android.widget.SeekBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
@@ -29,7 +30,16 @@ class newroleFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.newrole_fragment, container, false)
         //contador = binding.sbOrden.getProgress()
-        binding.txtOrder.text = sbOrden.progress.toString()
+        binding.sbOrden.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                binding.txtOrder.text = progress.toString()
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+
+        })
         setHasOptionsMenu(true)
         return binding.root
     }

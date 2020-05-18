@@ -10,7 +10,7 @@ data class Role(
     @PrimaryKey(autoGenerate = true) var Id: Int = 0,
     @NotNull val name: String,
     @NotNull val description: String,
-    @NotNull val order: Int
+    @NotNull val order: String
 
 
 

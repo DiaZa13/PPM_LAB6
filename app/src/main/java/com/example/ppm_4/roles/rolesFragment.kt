@@ -1,6 +1,5 @@
 package com.example.ppm_4.roles
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,14 +8,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-
 import com.example.ppm_4.R
 import com.example.ppm_4.database.GuestDatabase
-import com.example.ppm_4.databinding.FragmentGuestsBinding
 import com.example.ppm_4.databinding.FragmentRolesBinding
-import com.example.ppm_4.databinding.FragmentRolesBindingImpl
-import com.example.ppm_4.guests.GuestsFragmentViewModel
-import com.example.ppm_4.guests.GuestsFragmentViewModelFactory
 
 class rolesFragment : Fragment() {
 
