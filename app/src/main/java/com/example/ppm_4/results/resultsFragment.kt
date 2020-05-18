@@ -5,14 +5,15 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.ppm_4.R
 import com.example.ppm_4.database.GuestDatabase
 import com.example.ppm_4.databinding.FragmentResultsBinding
+//import com.example.ppm_4.databinding.FragmentResultsBindingImpl
 
 
 /**
@@ -23,7 +24,8 @@ class resultsFragment : Fragment() {
     private lateinit var viewModel: ResultsFragmentViewModel
     private lateinit var viewModelFactory: ResultsFragmentViewModelFactory
     private lateinit var binding : FragmentResultsBinding
-
+    var tRegistered : Int? = 0
+    var tGuests:Int? = 0
     var msg:String? = " "
 
     override fun onCreateView(
@@ -39,7 +41,7 @@ class resultsFragment : Fragment() {
         }
 
         binding.btnGuests.setOnClickListener{
-            Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, viewModel.guestText.value, Toast.LENGTH_SHORT).show()
         }
 
         setHasOptionsMenu(true)
@@ -54,8 +56,14 @@ class resultsFragment : Fragment() {
         viewModelFactory = ResultsFragmentViewModelFactory(dataSource)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ResultsFragmentViewModel::class.java)
         binding.viewModel = viewModel
+        //binding.lifecycleOwner = viewLifecycleOwner
+        viewModel.tGuests.observe(viewLifecycleOwner, Observer { tGuest ->
+            binding.txtTotal.text = "Invitados: " + tGuest.toString()
+        })
+        viewModel.tRegistered.observe(viewLifecycleOwner, Observer { tRegister ->
+            binding.txtTRegistrados.text = "Registrados: " + tRegister.toString()
+        })
 
-        msg = viewModel.aGuest.value
     }
 
 

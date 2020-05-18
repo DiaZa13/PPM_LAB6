@@ -2,14 +2,17 @@ package com.example.ppm_4.newguest
 
 import android.os.Bundle
 import android.view.*
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.ppm_4.R
 import com.example.ppm_4.database.GuestDatabase
 import com.example.ppm_4.database.GuestDatabaseDao
+import com.example.ppm_4.database.Role
 import com.example.ppm_4.databinding.FragmentNewguestBinding
 import com.example.ppm_4.register.RegisterFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_newguest.*
@@ -44,6 +47,18 @@ class newguestFragment : Fragment() {
         // TODO: Use the ViewModel
         binding.viewModel = viewModel
 
+        val roles = arrayListOf<Role>()
+        val rolesArray = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, roles)
+        binding.roleSpinner.adapter = rolesArray
+
+        viewModel.roles.observe(viewLifecycleOwner, Observer {
+            roles.clear()
+            roles.addAll(it)
+            if (it.isNotEmpty()) binding.roleSpinner.setSelection(0)
+            rolesArray.notifyDataSetChanged()
+        })
+
+
     }
 
 
@@ -62,7 +77,7 @@ class newguestFragment : Fragment() {
                 Toast.makeText(activity, "Llene todos los campos proporcionados", Toast.LENGTH_SHORT).show()
             }else{
             // User chose the "Settings" item, show the app settings UI...
-            viewModel.insertGuest()
+            viewModel.insertGuest(binding.roleSpinner.selectedItem)
             view?.findNavController()?.navigate(R.id.action_newguestFragment_to_guestsFragment2)}
 
             true
@@ -80,7 +95,6 @@ class newguestFragment : Fragment() {
         }
     }
 }
-
 
 
 

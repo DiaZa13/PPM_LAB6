@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.example.ppm_4.R
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -25,7 +26,6 @@ class registerFragment : Fragment() {
     private lateinit var viewModel: RegisterFragmentViewModel
     private lateinit var viewModelFactory: RegisterFragmentViewModelFactory
     private lateinit var binding:FragmentRegisterBinding
-    private var guestIndex = 0
     private var tRegistered = 0
 
     override fun onCreateView(
@@ -62,6 +62,9 @@ class registerFragment : Fragment() {
             viewModel.initialize(it)
             (activity as AppCompatActivity).supportActionBar?.title = "Registrando (" + viewModel.guestIndex + "/ " + viewModel.totalGuests +")"
         })
+
+
+
     }
 
     //ActionBar
@@ -80,7 +83,8 @@ class registerFragment : Fragment() {
         }
         R.id.Notregistered -> {
             // User chose the "Settings" item, show the app settings UI...
-            viewModel.updateRegisteredCurrentGuest()
+            viewModel.updateNotRegisteredCurrentGuest()
+
             true
         }
 

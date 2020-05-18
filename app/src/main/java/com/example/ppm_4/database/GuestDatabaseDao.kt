@@ -21,6 +21,7 @@ interface GuestDatabaseDao {
     @Update
     fun update(guest: Guest)
 
+
     @Query("SELECT * FROM guest_table ORDER BY Id ASC")
     fun getAllGuests(): LiveData<List<Guest>>
 
@@ -29,6 +30,12 @@ interface GuestDatabaseDao {
 
     @Query("SELECT COUNT(*) FROM guest_table")
     fun getGuestsCount(): LiveData<Int>
+
+    @Query("SELECT COUNT(*) FROM guest_table WHERE registered = 1 ")
+    fun getRegisteredGuests(): LiveData<Int>
+
+    @Query("SELECT g.*, r.rolName FROM guest_table g LEFT JOIN role_table r ON g.role_id = r.Id ORDER BY r.`order`")
+    fun getGuestandRole(): LiveData<List<GuestandRole>>
 
 
 }

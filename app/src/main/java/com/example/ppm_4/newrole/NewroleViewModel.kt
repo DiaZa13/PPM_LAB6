@@ -25,7 +25,7 @@ class NewroleViewModel(val database: GuestDatabaseDao) : ViewModel() {
 
     private suspend fun insert(){
         withContext(Dispatchers.IO) {
-            database.insert(Role(name = name.value?:"",description = description.value?:"", order = order.value?:""))
+            database.insert(Role(rolName = name.value?:"",description = description.value?:"", order = order.value?:""))
         }
     }
 
