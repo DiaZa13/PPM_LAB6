@@ -21,13 +21,15 @@ class newroleFragment : Fragment() {
     private lateinit var viewModel: NewroleViewModel
     private lateinit var viewModelFactory: NewroleViewModelFactory
     private lateinit var  binding: NewroleFragmentBinding
+    var contador: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.newrole_fragment, container, false)
-
+        //contador = binding.sbOrden.getProgress()
+        binding.txtOrder.text = sbOrden.progress.toString()
         setHasOptionsMenu(true)
         return binding.root
     }

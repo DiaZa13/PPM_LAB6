@@ -32,7 +32,7 @@ class rolesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View?{
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_guests, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_roles, container, false)
         binding.setLifecycleOwner(this)
         binding.btnNewRol.setOnClickListener{
             view?.findNavController()?.navigate(R.id.action_rolesFragment2_to_newroleFragment2)

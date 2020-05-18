@@ -60,7 +60,7 @@
             android:layout_marginTop="32dp"
             android:ems="10"
             android:hint="@string/newDescrition"
-            android:inputType="phone"
+            android:inputType="textLongMessage|text"
             android:text="@={viewModel.description}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.307"
@@ -80,13 +80,16 @@
 
         <SeekBar
             android:id="@+id/sbOrden"
-            android:layout_width="209dp"
-            android:layout_height="57dp"
-            android:layout_marginStart="88dp"
-            android:layout_marginLeft="88dp"
-            android:layout_marginTop="56dp"
-            app:layout_constraintStart_toStartOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/txtDescription" />
+            android:layout_width="294dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="320dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints"
+            android:max="10"
+            android:theme="@style/Widget.AppCompat.SeekBar.Discrete"/>
 
         <TextView
             android:id="@+id/textView4"
@@ -94,11 +97,28 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="264dp"
             android:fontFamily="@font/carrois_gothic"
-            android:text="Seleccion un orden"
+            android:text="Seleccione un orden"
+            android:textColor="#070707"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.182"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtOrder"
+            android:layout_width="26dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="252dp"
+            android:fontFamily="@font/carrois_gothic"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="#050505"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.148"
+            app:layout_constraintStart_toEndOf="@+id/textView4"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

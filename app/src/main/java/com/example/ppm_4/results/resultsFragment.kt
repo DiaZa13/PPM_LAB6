@@ -1,16 +1,17 @@
 package com.example.ppm_4.results
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.ppm_4.R
+import com.example.ppm_4.database.GuestDatabase
 import com.example.ppm_4.databinding.FragmentResultsBinding
 
 
@@ -20,6 +21,7 @@ import com.example.ppm_4.databinding.FragmentResultsBinding
 class resultsFragment : Fragment() {
 
     private lateinit var viewModel: ResultsFragmentViewModel
+    private lateinit var viewModelFactory: ResultsFragmentViewModelFactory
     private lateinit var binding : FragmentResultsBinding
 
     var msg:String? = " "
@@ -36,7 +38,6 @@ class resultsFragment : Fragment() {
 
         }
 
-
         binding.btnGuests.setOnClickListener{
             Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
         }
@@ -47,9 +48,13 @@ class resultsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ResultsFragmentViewModel::class.java)
-        // TODO: Use the ViewModel
+        binding.lifecycleOwner = this
+        val application = requireNotNull(this.activity).application
+        val dataSource = GuestDatabase.getInstance(application).GuestDatabaseDao
+        viewModelFactory = ResultsFragmentViewModelFactory(dataSource)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ResultsFragmentViewModel::class.java)
         binding.viewModel = viewModel
+
         msg = viewModel.aGuest.value
     }
 
