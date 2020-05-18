@@ -1,23 +1,22 @@
-package com.example.ppm_4.newrole
+package com.example.ppm_4.newguest
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.ppm_4.database.Guest
 import com.example.ppm_4.database.GuestDatabaseDao
-import com.example.ppm_4.database.Role
 import kotlinx.coroutines.*
 
-class NewroleViewModel(val database: GuestDatabaseDao) : ViewModel() {
-    // TODO: Implement the ViewModel
+class NewguestFragmentViewModel(val database: GuestDatabaseDao) : ViewModel() {
 
     val name = MutableLiveData<String>()
-    val description = MutableLiveData<String>()
-    val order = MutableLiveData<Int>()
+    val phone = MutableLiveData<String>()
+    val email = MutableLiveData<String>()
+    val role = MutableLiveData<String>()
 
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    fun insertRole() {
+    fun insertGuest() {
         uiScope.launch {
             insert()
         }
@@ -25,7 +24,7 @@ class NewroleViewModel(val database: GuestDatabaseDao) : ViewModel() {
 
     private suspend fun insert(){
         withContext(Dispatchers.IO) {
-            database.insert(Role(name = name.value?:"",description = description.value?:"", order = order.value?:0))
+            database.insert(Guest(name = name.value?:"", phone = phone.value?:"",email = email.value?:""))
         }
     }
 
@@ -33,5 +32,4 @@ class NewroleViewModel(val database: GuestDatabaseDao) : ViewModel() {
         super.onCleared()
         viewModelJob.cancel()
     }
-
 }

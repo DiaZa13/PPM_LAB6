@@ -1,42 +1,33 @@
 package com.example.ppm_4.newguest
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.example.ppm_4.R
-import com.example.ppm_4.databinding.FragmentGuestsBinding
+import com.example.ppm_4.database.GuestDatabase
+import com.example.ppm_4.database.GuestDatabaseDao
 import com.example.ppm_4.databinding.FragmentNewguestBinding
-import com.example.ppm_4.databinding.FragmentStartBinding
-import com.example.ppm_4.models.Guest
-import com.example.ppm_4.models.Guests
+import com.example.ppm_4.register.RegisterFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_newguest.*
-import java.lang.ClassCastException
 
 /**
  * A simple [Fragment] subclass.
  */
 class newguestFragment : Fragment() {
 
-    private lateinit var viewModel: newguestFragmentViewModel
+    private lateinit var viewModel: NewguestFragmentViewModel
+    private lateinit var viewModelFactory:NewguestFragmentViewModelFactory
     private lateinit var  binding: FragmentNewguestBinding
-    private lateinit var guests : Guests //questionuser
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_newguest, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_newguest, container, false)
 
         binding.setLifecycleOwner(this)
 
@@ -46,27 +37,15 @@ class newguestFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(newguestFragmentViewModel::class.java)
+        val application = requireNotNull(this.activity).application
+        val dataSource = GuestDatabase.getInstance(application).GuestDatabaseDao
+        viewModelFactory = NewguestFragmentViewModelFactory(dataSource)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(NewguestFragmentViewModel::class.java)
         // TODO: Use the ViewModel
-        viewModel.save.observe(viewLifecycleOwner, Observer { isSaved ->
-            if (isSaved){
-                val name = txtName.getText().toString()
-                val phone = txtPhone.getText().toString()
-                val email = txtEmail.getText().toString()
-                guests.guests.add(viewModel.addNewGuest(name,phone,email))
-            }
-        })
+        binding.viewModel = viewModel
 
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        try {
-            guests = context as Guests
-        }catch (castException : ClassCastException){
-
-        }
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -83,7 +62,7 @@ class newguestFragment : Fragment() {
                 Toast.makeText(activity, "Llene todos los campos proporcionados", Toast.LENGTH_SHORT).show()
             }else{
             // User chose the "Settings" item, show the app settings UI...
-            viewModel.saved()
+            viewModel.insertGuest()
             view?.findNavController()?.navigate(R.id.action_newguestFragment_to_guestsFragment2)}
 
             true

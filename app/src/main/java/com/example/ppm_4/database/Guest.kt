@@ -8,10 +8,10 @@ import org.jetbrains.annotations.NotNull
 @Entity(tableName = "guest_table")
 data class Guest(
     @PrimaryKey(autoGenerate = true)  var Id: Int = 0,
-    @ColumnInfo(name = "name") @NotNull val name: String,
-    @ColumnInfo(name = "phone") @NotNull val phone: String,
-    @ColumnInfo(name = "email") @NotNull val email: String,
-    @ColumnInfo(name = "registered") var registered: String,
-    @ColumnInfo(name = "role_id") val role_id: String
+    @NotNull val name: String,
+    @NotNull val phone: String,
+    @NotNull val email: String,
+    @NotNull var registered: String = ""
+    //@NotNull val role_id: String
 )
 

@@ -6,8 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 
 import com.example.ppm_4.R
+import com.example.ppm_4.database.GuestDatabase
+import com.example.ppm_4.databinding.FragmentGuestsBinding
+import com.example.ppm_4.databinding.FragmentRolesBinding
+import com.example.ppm_4.databinding.FragmentRolesBindingImpl
+import com.example.ppm_4.guests.GuestsFragmentViewModel
+import com.example.ppm_4.guests.GuestsFragmentViewModelFactory
 
 class rolesFragment : Fragment() {
 
@@ -16,18 +25,31 @@ class rolesFragment : Fragment() {
     }
 
     private lateinit var viewModel: RolesViewModel
+    private lateinit var viewModelFactory: RolesViewModelFactory
+    private lateinit var  binding: FragmentRolesBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_roles, container, false)
+    ): View?{
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_guests, container, false)
+        binding.setLifecycleOwner(this)
+        binding.btnNewRol.setOnClickListener{
+            view?.findNavController()?.navigate(R.id.action_rolesFragment2_to_newroleFragment2)
+        }
+
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(RolesViewModel::class.java)
+        binding.lifecycleOwner = this
+        val application = requireNotNull(this.activity).application
+        val dataSource = GuestDatabase.getInstance(application).GuestDatabaseDao
+        viewModelFactory = RolesViewModelFactory(dataSource)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(RolesViewModel::class.java)
         // TODO: Use the ViewModel
+        binding.viewModel = viewModel
     }
 
 }

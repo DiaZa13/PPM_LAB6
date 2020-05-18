@@ -65,9 +65,6 @@
         <action
             android:id="@+id/action_rolesFragment2_to_newroleFragment2"
             app:destination="@id/newroleFragment2" />
-        <action
-            android:id="@+id/action_rolesFragment2_to_startFragment2"
-            app:destination="@id/startFragment2" />
     </fragment>
     <fragment
         android:id="@+id/newroleFragment2"

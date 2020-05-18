@@ -6,18 +6,13 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-
 import com.example.ppm_4.R
 import com.example.ppm_4.databinding.FragmentResultsBinding
-import com.example.ppm_4.databinding.FragmentStartBinding
-import com.example.ppm_4.models.Guest
-import com.example.ppm_4.models.Guests
-import java.lang.ClassCastException
+
 
 /**
  * A simple [Fragment] subclass.
@@ -26,7 +21,6 @@ class resultsFragment : Fragment() {
 
     private lateinit var viewModel: ResultsFragmentViewModel
     private lateinit var binding : FragmentResultsBinding
-    private lateinit var guests : Guests //questionuser
 
     var msg:String? = " "
 
@@ -56,25 +50,10 @@ class resultsFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(ResultsFragmentViewModel::class.java)
         // TODO: Use the ViewModel
         binding.viewModel = viewModel
-        updateVisibleGuests()
         msg = viewModel.aGuest.value
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        try {
-            guests = context as Guests
-        }catch (castException : ClassCastException){
 
-        }
-    }
-
-    fun updateVisibleGuests() {
-        for(guestIndex in 0..guests.guests.size -1){
-            viewModel.updateGuest(guests.guests.size, guests.guests[guestIndex])
-        }
-
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)

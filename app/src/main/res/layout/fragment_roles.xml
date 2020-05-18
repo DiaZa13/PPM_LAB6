@@ -47,14 +47,14 @@
                     android:id="@+id/lblDescripcion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/carrois_gothic"/>
-                    //android:text="@{viewModel.guests}"
+                    android:fontFamily="@font/carrois_gothic"
+                    android:text="@{viewModel.rolesText}"/>
 
             </LinearLayout>
         </ScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btnNewguest"
+            android:id="@+id/btnNewRol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|fill|end"

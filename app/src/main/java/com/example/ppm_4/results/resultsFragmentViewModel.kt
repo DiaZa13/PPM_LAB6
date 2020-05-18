@@ -3,7 +3,6 @@ package com.example.ppm_4.results
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.ppm_4.models.Guest
 
 class ResultsFragmentViewModel : ViewModel() {
 
@@ -19,9 +18,5 @@ class ResultsFragmentViewModel : ViewModel() {
     val aGuest : LiveData<String>
     get() = _aGuest
 
-    fun updateGuest(guestIndex : Int, guest : Guest){
-        _totalGuests.value = guestIndex.toString()
-        _totalRegistered.value = guest.tRegistered.toString()
-        _aGuest.value = if(_aGuest.value == null) {""}else{_aGuest.value} + " " + guest.name  + ": " + guest.registered + "  "
-    }
+
 }

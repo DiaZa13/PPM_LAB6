@@ -1,23 +1,26 @@
 package com.example.ppm_4.guests
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.example.ppm_4.models.Guest
+import com.example.ppm_4.database.Guest
+import com.example.ppm_4.database.GuestDatabaseDao
+import java.lang.StringBuilder
 
-class GuestsFragmentViewModel :  ViewModel() {
+class GuestsFragmentViewModel(val database:GuestDatabaseDao):  ViewModel() {
 
-    private val _guestList = MutableLiveData<ArrayList<Guest>>()
-    val guestList : LiveData<ArrayList<Guest>>
-    get() = _guestList
+    private val types = database.getAllGuests()
 
-    private val _guests = MutableLiveData<String>()
-    val guests : LiveData<String>
-    get () = _guests
-
-    fun updateGuest(guest : Guest,guestIndex : Int){
-        _guestList.value?.add(guest)
-        _guests.value = if(_guests.value == null) {""}else{_guests.value} + "Invitado: " + guestIndex + "\nNombre: " + guest.name + "\nTeléfono: " + guest.phone + "\nEmail: " + guest.email + "\n\n"
+    val guestText = Transformations.map(types) {
+        buildGuestText(it)
     }
-    
+
+    private fun buildGuestText(types: List<Guest>) : String{
+        val guestText = StringBuilder()
+        for (type in types){
+            guestText.append("Invitado: ${type.Id}\nNombre: ${type.name}\nTelefono: ${type.phone}\nEmail: ${type.email}\n\n")
+        }
+        return guestText.toString()
+    }
+
+
 }
